@@ -1,0 +1,31 @@
+/**
+debts = ['Alex Blake 2', 'Blake Alex 2', 'Casey Alex 5', 
+    'Blake Casey 7', 'Alex Blake 4', 'Alex Casey 4']
+
+    return = ['Alex', 'Blake']
+
+
+*/
+
+function smallestNegativeBalance(debts) {
+    let records = {};
+
+    for (let i = 0; i < debts.length; i++) {
+        const [borrower, lender, amt] = debts[i].split(' ');
+        records[borrower] = (records[borrower] || 0) - amt;
+        records[lender] = (records[lender] || 0) + amt;
+    }
+
+    let smallestBalance = Infinity;
+    let smallestRecords = [];
+    for (let record in records) {
+        if (records[record] < smallestBalance) {
+            smallestBalance = records[record];
+            smallestRecords = [record];
+        } else if (records[record] === smallestBalance) {
+            smallestRecords.push(record);
+        }
+    }
+
+    return smallestRecords;
+}

@@ -1,0 +1,75 @@
+Symbol       Value
+I             1
+V             5
+X             10
+L             50
+C             100
+D             500
+M             1000
+
+while s > 0 determine range and 
+add to roman numeral and 
+subtract from s and 
+continue working through number
+
+post work through subtractions
+
+/**
+ * @param {string} s
+ * @return {number}
+ */
+
+var romanToInt = function(s) {
+    
+    let roman = '';
+    while (s > 0) {
+        if (s >= 1000) {
+            roman += 'M';
+            s -= 1000;
+            if (s >= 900 && s < 1000) {
+                roman += 'CM';
+                s -= 900;
+            }
+        } else if (s >= 500) {
+            roman += 'D';
+            s -= 500;
+            if (s >= 400 && s < 500) {
+                roman += 'CD';
+                s -= 400;
+            }
+        } else if (s >= 100) {
+            roman += 'C';
+            s -= 100;
+            if (s >= 90 && s < 100) {
+                roman += 'XC';
+                s -= 90;
+            }
+        } else if (s >= 50) {
+            roman += 'L';
+            s -= 50;
+            if (s >= 40 && s < 50) {
+                roman += 'XL';
+                s -= 90;
+            }
+        } else if (s >= 10) {
+            roman += 'X';
+            s -= 10;
+            if (s >= 9 && s < 10) {
+                roman += 'IX';
+                s -= 9;
+            }
+        } else if (s >= 5) {
+            roman += 'V';
+            s -= 5;
+            if (s === 4) {
+                roman += 'IV';
+                s -= 4;
+            }
+        } else if (s >= 1) {
+            roman += 'I';
+            s -= 1;
+        }
+    }
+
+    return roman;
+};
