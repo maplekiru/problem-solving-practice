@@ -1,0 +1,73 @@
+// accepts a string s which can be the following characthers "(){}[]"
+// function returns true if brackets are all closed and closed in correct order
+    // opening bracket before closing
+
+// use loop (for of) to traverse through each character in the string
+    in loop we will determine what character is and decide if it makes the string invalid
+    // closing bracket before open
+
+// other failing case is if at end of loop open bracket remains
+
+// need a counter for same style bracket
+    // +1 for opening and -1 for closed, if counter becomes negative, return false
+    // if all counters not 0 at end of loop return false
+    // otherwise we will return true
+
+// TEST CASES
+    1. "()" --> true
+    2. "(){}[]" --> true
+    3. "(]" --> false
+    4. "([)]" --> false
+    5. "{[]}" --> true
+
+function validParentheses(s) {
+    let counter = {
+        "(": 0,
+        "{": 0,
+        "[": 0
+    };
+
+    let closingOrder=[];
+
+    for (let char of s) {
+        let nextClose = closingOrder[closingOrder.length - 1];
+        if (char === "(" || char === ")" ) {
+            if (char === "(" ) {
+                counter["("]++;
+                closingOrder.push(")");
+            }
+            else {
+                counter["("]--;
+                closingOrder.pop();
+            }
+        }
+        else if (char === "{" || char === "}" ) {
+            if (char === "{" ) {
+                counter["{"]++;
+                closingOrder.push("}");
+            }
+            else {
+                counter["{"]--;
+                if (nextClose !== char) return false;
+                closingOrder.pop();
+            }
+        }
+        else if (char === "[" || char === "]" ) {
+            if (char === "[" ) {
+                counter["["]++;
+                closingOrder.push("]");
+            }
+            else {
+                counter["["]--;
+                if (nextClose !== char) return false;
+                closingOrder.pop();
+            }
+        }
+    }
+
+    for (let key in counter) {
+        if (counter[key] !== 0) return false;
+    }
+
+    return true;
+}
