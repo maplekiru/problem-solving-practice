@@ -1,0 +1,47 @@
+Implement a document scanning function wordCountEngine, which receives a string document and returns a list of all unique words in it and their number of occurrences, sorted by the number of occurrences in a descending order. If two or more words have the same count, they should be sorted according to their order in the original sentence. Assume that all letters are in english alphabet. You function should be case-insensitive, so for instance, the words “Perfect” and “perfect” should be considered the same word.
+
+The engine should strip out punctuation (even in the middle of a word) and use whitespaces to separate words.
+
+Analyze the time and space complexities of your solution. Try to optimize for time while keeping a polynomial space complexity.
+
+// Function accepts string of words and returns array of all unique words and # of occurrences (arrays of arrays) all of the values will be strings
+ - sort in descending order
+ - if tied sort in order of order in string
+ - case insensitive
+ - strip punctuations
+ - seperate by space between words
+
+ // seperate the list of words with a space and clean up punctuation
+ // add to array and use find to determine if word is already in array and add to count (2nd argument if in the array)
+ // sort by array within array 2nd argument from highest to lowest (use sort method)
+ // return final array
+
+ function wordCountEngine(document) {
+     let words = document.split(' ');
+
+     let sortedWords = [];
+
+     for (let word of words) {
+         
+         let punctuations = ["'",".",...]
+         let finalWord = '';
+
+         for (let char of word) {
+             let punctuationIndex = punctuations.findIndex(char);
+             if (punctuationIndex === -1) {
+                 finalWord+=char;
+             }
+         }
+
+         let wordIndex = words.findIndex(finalWord.toLowerCase())
+         if (wordIndex > -1) {
+             sortedWords[wordIndex][1]++;
+         } else {
+             sortedWords.push([finalWord.toLowerCase(), 1])
+         }
+     }
+
+     sortedWords.sort((word) => word[1]);
+
+     return sortedWords;
+ }
