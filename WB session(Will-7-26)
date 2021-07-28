@@ -1,0 +1,118 @@
+Implement a document scanning function wordCountEngine, which receives a string document and returns a list of all unique words in it and their number of occurrences, sorted by the number of occurrences in a descending order. If two or more words have the same count, they should be sorted according to their order in the original sentence. Assume that all letters are in english alphabet. You function should be case-insensitive, so for instance, the words “Perfect” and “perfect” should be considered the same word.
+
+The engine should strip out punctuation (even in the middle of a word) and use white spaces to separate words.
+
+Analyze the time and space complexities of your solution. Try to optimize for time while keeping a polynomial space complexity.
+
+// Function accepts string of words and returns array of all unique words and # of occurrences (arrays of arrays) 
+ - all of the values will be strings 
+ - sort in descending order
+ - if tied sort in order of order in document x
+ - case insensitive x
+ - strip punctuations x
+ - separate by space between words x
+
+ // separate the list of words with a space and clean up punctuation
+ // add to array and use find to determine if word is already in array and add to count (2nd argument if in the array)
+ // sort by array within array 2nd argument from highest to lowest (use sort method)
+ // return final array
+
+ "a A bbc, bbc"
+
+ function wordCountEngine(document) {
+     let words = document.split(' ');
+
+     let sortedWords = [];
+
+     for (let word of words) {
+         
+         let punctuations = ["'",".",...]
+         let finalWord = '';
+
+         let cleaned = word.replace(/[^a-z]/g, '');
+         for (let char of word) {
+           if (char < 'a' || char > 'z')
+             let punctuationIndex = punctuations.findIndex((char) => char === whatever);
+             if (punctuationIndex === -1) {
+                 finalWord+=char;
+             }
+         }
+
+         let wordIndex = words.findIndex((word) => word === finalWord.toLowerCase())
+         if (wordIndex > -1) {
+             sortedWords[wordIndex][1]++;
+         } else {
+             sortedWords.push([finalWord.toLowerCase(), 1])
+         }
+     }
+
+     // convert numbers to strings
+
+     sortedWords.sort((word) => word[1]);
+     sortedWords.sort((a, b) => b[1] - a[1])
+
+     const counts = new Array(maxCount).fill(null).map(() => [])
+     frequencyCounter.forEach((count, word) => counts[count].push(word))
+
+     return sortedWords;
+ }
+
+ ####################################################################################
+
+
+Imagine we have an image. We'll represent this image as a simple 2D array where every pixel is a 1 or a 0.
+There is 1 rectangle made up of 0s in the image. Find the coordinates of the rectangle.
+Either return the coordinates of the top-left and bottom-right corners,
+or if you would prefer, the top-left coordinates, width and height of the rectangle.
+
+// 0 will be in the rectangle
+
+// approach
+    - first find top left corner use a for loop within for loop until we hit 0
+    - WIDTH, once top left is found, work through the array within array till 1 or undefined
+    - Height = once top left is found, work "row" by row until we hit 1 or undefined
+
+1  1  1  1
+1  0  0  1
+1  0  0  1 ==> [1,1,2,2]  
+1  1  1  1
+
+1  1  0  0
+1  1  0  0
+1  1  0  0
+
+empty array
+
+function findRectangle(image) {
+
+    let topLeftI, topLeftJ, bottomRightJ, bottomRightI;
+
+    outer:
+    for (let i = 0; i< image.length; i++) {
+
+        for (let j = 0; j < image[i].length; j++) {
+            if (image[i][j] === 0) {
+                topLeftI = i;
+                topLeftJ = j;
+                break outer;
+            }
+        }
+        if (topLeftI) break;
+    }
+
+    for (let x = topLeftJ; x < image[topLeftI].length; x++ ) {
+        if (image[topLeftI][x] === 0) {
+            bottomRightJ = x;
+        }
+    }
+
+    for (let y = topLeftI; y < image.length; y++ ){
+        if (image[y][topLeftJ] !== 0) {
+            bottomRightI = y - 1;
+            break;
+        }
+    }
+
+    return [topLeftI, topLeftJ, bottomRightI, bottomRightJ]
+
+} 

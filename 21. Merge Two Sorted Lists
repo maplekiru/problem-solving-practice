@@ -1,0 +1,56 @@
+Merge two sorted linked lists and return it as a sorted list. The list should be made by splicing together the nodes of the first two lists.
+
+**
+ * Definition for singly-linked list.
+ * function ListNode(val, next) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.next = (next===undefined ? null : next)
+ * }
+ */
+/**
+ * @param {ListNode} l1
+ * @param {ListNode} l2
+ * @return {ListNode}
+ */
+
+reqs:
+    return new list sorted from the original 2 arrays
+
+TEST CASES:
+    l1 = [1,2,4] l2 = [1,3,4] ==> [1,1,2,3,4,4]
+    l1 = [] l2 = [] ==> []
+    l1 = [] l2 = [0] ==> [0]
+
+PSEUDO CODE:
+    - container for our sorted list []
+    - multiple pointers, to iterate through both arrays
+    - use a while loop to loop through the iterations and compare values between original arrays
+        - while loop will continue until pointers are greater than the lengths of the original arrays respectively
+    - if one value is bigger, we will push that to our merged list and increase our pointer by 1
+    - NOTE: handle undefined values in comparison when comparing between the 2 lists
+
+EDGE CASE:
+ - empty list or lists
+
+
+function mergeTwoLists (list1, list2) {
+
+    let mergeList = [];
+    pointer1 = 0;
+    pointer2 = 0;
+
+    while (pointer1 < l1.length || pointer2 < l2.length) {
+        const val1 = l1[pointer1] || 101;
+        const val2 = l2[pointer2]; || 101;
+
+        if (val1 <= val2) {
+            mergeList.push(val1)
+            pointer1++;
+        } else if (val2 < val1) {
+            mergeList.push(val2)
+            pointer2++;
+        }
+    }
+
+    return mergeList;
+}
