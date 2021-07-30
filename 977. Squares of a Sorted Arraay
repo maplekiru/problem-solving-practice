@@ -1,0 +1,38 @@
+Given an integer array nums sorted in non-decreasing order, return an array of the squares of each number sorted in non-decreasing order.
+
+TEST CASES:
+
+[-4,-1,0,3,10] --> [0,1,9,16,100]
+
+[-7,-3,2,3,11] --> [4,9,9,49,121]
+
+Approaches: 
+- Create Stack with negatives
+-- then merge sort the negative array and leftover of positive array
+
+function sortedSquares(nums) {
+    let negatives = [];
+    let pointer = 0;
+    let sortedNums = []
+
+    while (nums[pointer] < 0) {
+        let square = Math.pow(nums[pointer],2);
+        negatives.push(square);
+        pointer++;
+    }
+
+    while(negatives.length > 0 || pointer < nums.length);
+
+    const negNum = negatives[negatives.length - 1];
+    const posNum = Math.pow(nums[pointer],2) || Infinity;
+
+    if (negNum <= posNum) {
+        sortedNums.push(negNum);
+        negatives.pop();
+    } else {
+        sortedNums.push(posNum);
+        pointer++;
+    }
+
+    return sortedNums;
+}

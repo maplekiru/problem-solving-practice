@@ -1,0 +1,53 @@
+Given the root of a binary tree, return the inorder traversal of its nodes' values.
+
+TEST CASE:
+
+[1,null,2,3] --> [1,3,2]
+[] --> []
+[1] --> [1]
+[1,2] --> [2,1]
+
+approach:
+
+left current right
+
+add current in middle and then return tracker array back up stack
+
+call recursion on left and right if not null, if null we have reached base case
+
+progress: moving using node.left and node.right respectively
+
+
+
+
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val, left, right) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.left = (left===undefined ? null : left)
+ *     this.right = (right===undefined ? null : right)
+ * }
+ */
+/**
+ * @param {TreeNode} root
+ * @return {number[]}
+ */
+
+var inorderTraversal = function(root, output = []) {
+    
+    // left
+    if (root && root.left !== null) {
+        output = inorderTraversal(root.left, output);
+    }
+
+    //current
+    if (root) output.push(root.val);
+
+
+    //right
+    if (root && root.right !== null) {
+        output = inorderTraversal(root.right, output);
+    }
+
+    return output;
+};

@@ -1,0 +1,42 @@
+Given an integer array nums, find the contiguous subarray (containing at least one number) which has the largest sum and return its sum.
+
+A subarray is a contiguous part of an array.
+
+// *sliding window tracking starting and ending index of max sum;
+// reassign index as we move through the array i.e if the value is negative 
+    after position 1 then that will always not get reassigned at the moment
+    still track in current total
+    if the following value increases current over previous max then we would update ending index
+    -- need to also compare if individually that value is greater that the previous sum
+    return max sum once iterated through the array
+
+TEST CASES:
+Input: nums = [-2,1,-3,4,-1,2,1,-5,4]
+
+Output: 6  <== [4,-1,2,1];
+
+Edge case of empty array;
+
+function maxSubArray (arr) {
+
+    let max = arr[0] || 0;
+    let current = arr[0] || 0;
+
+    for (let i = 1; i < arr.length; i++) {
+        if (arr[i] > 0) {
+            current += arr[i]
+            if (current > max) max = current;
+        } else if (arr[i] < 0) {
+            current += arr[i];
+        }
+
+        if (arr[i] > max) {
+            current = arr[i];
+            max = current;
+        }
+        
+    }
+
+    return max
+
+}

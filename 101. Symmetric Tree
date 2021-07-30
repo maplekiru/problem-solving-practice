@@ -1,0 +1,52 @@
+Given the root of a binary tree, check whether it is a mirror of itself (i.e., symmetric around its center).
+
+TESTCASES:
+
+Input: root = [1,2,2,3,4,4,3]
+Output: true;
+
+Input: root = [1,2,2,null,3,null,3]
+Output: false
+
+approaches:
+ - work recursively through both edges at same time and work back way in.
+    - base case, if nodes don't equal return false; 
+    - progress left most and right most
+
+-- return true at end if nodes mirror
+
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val, left, right) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.left = (left===undefined ? null : left)
+ *     this.right = (right===undefined ? null : right)
+ * }
+ */
+/**
+ * @param {TreeNode} root
+ * @return {boolean}
+ */
+
+var isSymmetric = function(root, left = root.left, right = root.right) {
+    let isSymmetrical;
+
+    if (left?.val !== right?.val) return false;
+
+    if (left?.left & right?.right) {
+        isSymmetrical = isSymmetric(root, left.left, right.right);
+    } else if (left?.left || right?.right) {
+        isSymmetrical = false;
+    }
+
+    if (isSymmetrical === false) return false;
+
+    if(left?.right && right?.left) {
+        isSymmetrical = isSymmetric(root, left.right, right.left);
+    } else if (left?.right || right?.left) {
+        isSymmetrical = false;
+    }
+    if (isSymmetrical === false) return false;;
+
+    return true;
+};
