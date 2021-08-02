@@ -1,0 +1,51 @@
+- remove each duplicate so that each element only appears once
+- sorted list
+- return head of new linked list
+- change list in place
+- new list should be sorted
+
+TESTCASES -->
+
+[1,1,2,3] => [1,2,3]
+
+[1]
+
+[]
+
+Approaches:
+- check if the current node val = previous val
+ -- tracker for the previous node current node
+
+- set the head at the beg of function to return once done iterating through
+
+-- if currVal = prevVal; 
+
+-- prevNode.next = current.next
+
+
+listNode(val, next) {
+    this.val = val;
+    this.next = next
+}
+
+
+function deleteDuplicates (root) {
+    const head = root;
+
+    let current = root.next;
+    let prev =  root;
+
+    while (current) {
+        let val = current.val;
+
+        if (val === prev.val) {
+            prev.next = current.next;
+        } else {
+            prev = current;
+        }
+
+        current = current.next
+    }
+
+    return head;
+}

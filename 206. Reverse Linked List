@@ -1,0 +1,54 @@
+Given the head of a singly linked list, reverse the list, and return the reversed list.
+
+list should return last node as head.
+
+TESTCASES: [1,2,3,4,5] => [5,4,3,2,1]
+
+Approaches:
+
+- Iterative Approach
+    - Loop through the original array and add to a stack
+    - pop 1st one off the stack and set as head
+     -- loop through popping and set the "next" node until there is no more to pop
+- Recursive 
+
+
+
+
+
+/**
+ * Definition for singly-linked list.
+ * function ListNode(val, next) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.next = (next===undefined ? null : next)
+ * }
+ */
+/**
+ * @param {ListNode} head
+ * @return {ListNode}
+ */
+
+
+var reverseList = function(head) {
+
+    let current = head;
+    let stack = [];
+
+    while (current !== null) {
+        stack.push(current);
+        current = current.next;
+    }
+
+    head = stack.pop();
+    current = head
+
+    while (stack.length !== 0) {
+        node = stack.pop();
+        current.next = node;
+        current = node;
+    }
+
+    current.next = null;
+
+    return head;
+};
