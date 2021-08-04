@@ -1,0 +1,150 @@
+// 2 strings that returns true if both were typed in a empty text editor and they end up being the same
+
+special case: delete char # will also be in the string
+
+"ab##c"
+"ad##c"
+
+"a#"
+"a"
+
+approach:
+
+- loop through both strings and rebuild
+- in loop check for special charcther "#" to determine if we add letter / char to rebuilt in arrary -> pop if we find delete charachter and then join array
+    - 
+- check at end if rebuilt strings are equal and return true or false respectively
+
+function sameString (str1, str2) {
+
+    let strArr1 = [];
+    let strArr2 = [];
+    
+    for (let i = 0; i < str1.length; i++) {
+        let char = str1[i];
+
+        if (char === '#') {
+            strArr1.pop();
+        } else {
+            strArr1.push(char);
+        }
+    }
+
+    for (let i = 0; i < str2.length; i++) {
+        let char = str2[i];
+
+        if (char === '#') {
+            strArr2.pop();
+        } else {
+            strArr2.push(char);
+        }
+    }
+
+    str1 = strArr1.join('');
+    str2 = strArr2.join('');
+
+    return str1 === str2;
+
+}
+
+
+message = "takes this text!"
+rows = 4
+cols = 4
+
+[
+    ['t', 'a', 'k', 'e'],
+    ['s', ' ', 't', 'h'],
+    ['i', 's', ' ', 't'],
+    ['e', 'x', 't', '!'],
+]
+
+output = "tsiea sx kt teht!"
+
+// accept a string, # of rows, # of cols -> return  "encoded msg"
+    - work our away accross and down to build 2d arr from string
+    - truncate extra rows if necessary
+    return string going in order down column and then across
+
+// approach:
+    - loop through the string and add each char to its corresponding position on this grid
+    - row index column index --> use if condition to work down row once at end of column
+
+    - create string builder --> access the 2-d array and traverse down accross --> use if condition
+    return final stringbuilder
+
+
+
+function encipher(str, row, col) {
+    
+    let container = [];
+    let rowIdx = 0;
+    let colIdx = 0;
+
+    let builder = [];
+
+    for (let char of str) {
+        builder.push(char);
+        colIdx++;
+
+        if (colIdx === col) {
+            container.push(builder);
+            colIdx = 0;
+            builder = [];
+        }
+    }
+
+    for(let i = 0; i < row; i += 1) {
+      for(let j = 0; j < col; j += 1) {
+
+      }
+    }
+
+    for(let j = 0; j < col; j += 1) {
+      for(let i = 0; i < row; i += 1) {
+
+      }
+    }
+
+    let strBld = '';
+
+    while (colIdx <= col - 1) {
+        strBld += container[rowIdx][colIdx];
+
+        if (rowIdx === row - 1) {
+            colIdx++;
+            rowIdx = 0
+        } else {
+            rowIdx++;
+        }
+    }
+
+    return strBld; 
+
+}
+
+
+
+You decide to create a substitution cipher. The cipher alphabet is based on a key shared amongst those of your friends who don't mind spoilers.
+
+Suppose the key is:
+"The quick onyx goblin, grabbing his sword, jumps over the lazy dwarf!".
+
+We use only the unique letters in this key to set the order of the characters in the substitution table.
+
+T H E Q U I C K O N Y X G B L R A S W D J M P V Z F
+
+(spaces added for readability)
+
+We then align it with the regular alphabet:
+A B C D E F G H I J K L M N O P Q R S T U V W X Y Z
+T H E Q U I C K O N Y X G B L R A S W D J M P V Z F
+
+Which gives us the substitution mapping: A becomes T, B becomes H, C becomes E, etc.
+
+Write a function that takes a key and a string and encrypts the string with the key.
+
+Example:
+key = "The quick onyx goblin, grabbing his sword, jumps over the lazy dwarf!"
+encrypt("It was all a dream.", key) -> "Od ptw txx t qsutg."
+encrypt("Would you kindly?", key) -> "Pljxq zlj yobqxz?"

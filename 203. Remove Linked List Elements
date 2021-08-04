@@ -1,0 +1,50 @@
+Given the head of a linked list and an integer val, remove all the nodes of the linked list that has Node.val == val, and return the new head.
+
+TESTCASES:
+head = [1,2,6,3,4,5,6], val = 6 --> [1,2,3,4,5]
+
+Approach:
+- Set head as current
+- Set prev
+- loop (while) for current isn't null
+    - condition to check if the val is equal to removalVal
+        - set prev next to be current next
+    current = current.next
+    prev = current
+
+- return the head
+
+
+/**
+ * Definition for singly-linked list.
+ * function ListNode(val, next) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.next = (next===undefined ? null : next)
+ * }
+ */
+/**
+ * @param {ListNode} head
+ * @param {number} val
+ * @return {ListNode}
+ */
+
+var removeElements = function(head, val) {
+    
+    while (head && head.val === val) {
+        head = head.next;
+    }
+
+    let current = head;
+    let prev = null;
+
+    while (current !== null) {
+        if (current.val === val) {
+            prev.next = current.next;
+        } else {
+            prev = current;
+        }
+        current = current.next;
+    }
+
+    return head;
+};

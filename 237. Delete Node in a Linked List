@@ -1,0 +1,30 @@
+Write a function to delete a node in a singly-linked list. You will not be given access to the head of the list, instead you will be given access to the node to be deleted directly.
+
+It is guaranteed that the node to be deleted is not a tail node in the list.
+
+TEST CASES  =  [4,5,1,9], 5 -> [4,1,9]
+
+Approach:
+ - Cant move backwords in single linked list, so cant change where the previous note is point too
+ - Need to handle change at the given node to make the deletion
+ - change the value at the current node and have it be the value of the next node as well as pointing it out the next next node.
+
+/**
+ * Definition for singly-linked list.
+ * function ListNode(val) {
+ *     this.val = val;
+ *     this.next = null;
+ * }
+ */
+/**
+ * @param {ListNode} node
+ * @return {void} Do not return anything, modify node in-place instead.
+ */
+
+
+var deleteNode = function(node) {
+    
+    node.val = node.next.val;
+    node.next = node.next.next;
+
+};
