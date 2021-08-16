@@ -1,0 +1,146 @@
+class 
+ - visit (url)
+ - back ( # of steps back)
+ - forward (# of steps forward)
+
+ constructor (homepage)
+
+ - edge cases:
+    back to many steps end at home page
+    fwd to many steps end at last page
+
+Testcases
+
+homepage -> 1 --> 2 ---> 3 --> 4
+    (3) back(1) --> 2
+    (3) back (5) --> homepage
+    (homepage) forward (1) --> 1
+
+if visiting in middle node (add after current) and remove rest of link
+
+Approach:
+
+    class properties:
+
+    head, tail, length
+
+    head will always be homepage
+
+    tail will be last url visited
+
+    methods will need to update properties when necessary
+
+    visit:
+     - add/change node of current.next to newly visited url
+     - and update this.tail to be new page
+
+    back: 
+     - loop # of steps back using this.current.previous 
+        - until we move # of steps back or 
+        - this.current.previous = null
+        - update this.current node
+    
+    forward:
+    - loop # of steps forward usign this.current.next
+        - move until # of steps reached or
+        - this.current.next = null
+        - update this.current
+
+    class node
+        url
+        next,
+        previous
+
+
+class Node (url, next = null, previous = null) {
+    url = url;
+    next = next;
+    previous = previous;
+}
+
+class Browser (homepage) {
+    constructor (homepage) {
+        this.current = new Node(homepage);
+    }
+
+    visit(url) {
+        let node = new Node(url, null, this.current);
+
+        this.current.next = node;
+        this.current = this.current.next;
+
+    }
+
+    back(steps) {
+        
+        while (steps > 0 && this.current.previous !== null) {
+            this.current = this.current.previous;
+            steps--;
+        }
+
+        return this.current.url;
+    }
+
+    forward (steps) {
+
+        while (steps > 0 && this.current.next !== null) {
+            this.current = this.current.next;
+            steps--;
+        }
+
+        return this.current.url;
+    }
+
+
+}
+
+
+A Tic-Tac-Toe board is given as a string array board. Return True if and only if it is possible to reach this board position during the course of a valid tic-tac-toe game.
+
+The board is a 3 x 3 array, and consists of characters " ", "X", and "O".  The " " character represents an empty square.
+
+Here are the rules of Tic-Tac-Toe:
+
+Players take turns placing characters into empty squares (" ").
+The first player always places "X" characters, while the second player always places "O" characters.
+"X" and "O" characters are always placed into empty squares, never filled ones.
+The game ends when there are 3 of the same (non-empty) character filling any row, column, or diagonal.
+The game also ends if all squares are non-empty.
+No more moves can be played if the game is over.
+Example 1:
+Input: board = ["O  ", "   ", "   "]
+Output: false
+Explanation: The first player always plays "X".
+
+Approach - if one player has won twice with no overlap, both players have a win condition
+        - if the X player has 2 more "pieces" than O, or O has 1 more "piece" than X
+
+function (board) {
+    let wins = '';
+    let numX = 0;
+    let numO = 0;
+    
+    for (let i = 0; i <=2, i++) {
+        if (board[i][0] !== ' ' && (board[i][0] == board[i][1] && board[0][0] === board[i][2])) win += board[i][0];
+        if (board[0][i] !== ' ' && (board[0][i] == board[1][i] && board[0][0] === board[2][i])) win += board[0][i];
+        for (let j = 0; j<=2; j++) {
+            if (board[i][j] === 'O') numO++;
+            if (board[i][j] === 'X') numX++;
+        }
+    }
+
+    if (board[0][0] !== ' ' && (board[0][0] === board[1][1] && board[0][0] === board[2][2])) win += board[0][0];
+    if (board[0][2] !== ' ' && (board[0][2] === board[1][1] && board[0][0] === board[2][0])) win += board[0][2];
+
+    if (wins) {
+        let winner = wins[0];
+
+        for (let i = 1; i< wins.length; i++;) {
+            if (wins[i] !== winner) return false;
+        }
+    }
+
+    
+
+    return true;
+}

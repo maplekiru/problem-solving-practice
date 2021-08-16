@@ -1,0 +1,67 @@
+Given the heads of two singly linked-lists headA and headB, return the node at which the two lists intersect. If the two linked lists have no intersection at all, return null.
+
+TestCases:
+listA = [4,1,8,4,5], listB = [5,6,1,8,4,5] ==> 8
+
+listA = [2,6,4], listB = [1,5] ==> 0
+
+Approach:
+ - compare reference instead of val to find intersection point
+ - simple case is if both were the same length use multiple pointers to move at equal speeds through linked lists
+
+ - O (n) to find length
+    - then move the longer list along to have the 2 lists start at "same" point
+
+
+/**
+ * Definition for singly-linked list.
+ * function ListNode(val) {
+ *     this.val = val;
+ *     this.next = null;
+ * }
+ */
+
+/**
+ * @param {ListNode} headA
+ * @param {ListNode} headB
+ * @return {ListNode}
+ */
+
+var getIntersectionNode = function(headA, headB) {
+
+    let currentA = headA;
+    let currentB = headB;
+    let lengthA = 0;
+    let lengthB = 0;
+
+    while (currentA !==null) {
+        lengthA++
+        currentA = currentA.next;
+    }
+
+    while (currentB !==null) {
+        lengthB++
+        currentB = currentB.next;
+    }
+
+    currentA = headA;
+    currentB = headB;
+
+    if (lengthA > lengthB) {
+        for (i = 0; i < lengthA - lengthB; i++) {
+            currentA = currentA.next;
+        }
+    } else if (lengthB > lengthA ) {
+        for (i = 0; i < lengthB - lengthA; i++) {
+            currentB = currentB.next;
+        }
+    }
+
+    while(currentA !== null && currentB !== null) {
+        if (currentA === currentB) return currentA;
+        currentA = currentA.next;
+        currentB = currentB.next;
+    }
+
+    return null;
+};

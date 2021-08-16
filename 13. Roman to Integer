@@ -1,0 +1,88 @@
+Given a roman numeral, convert it to an integer.
+
+Symbol       Value
+I             1
+V             5
+X             10
+L             50
+C             100
+D             500
+M             1000
+
+IV IX   
+XL XC
+CD CM
+
+TESTCASES:
+
+III -> 3
+IV -> 4
+IX -> 9 
+MCMXCIV -> 1994
+
+Approach:
+
+- initiate sum at 0
+- Loop through each char keeping track of the index
+    - If that char is I, X, or C then check following char to see if it falls into our special case
+        - add the char to our look up in the object and manually also increase index by 1
+    - Else just look up the value in our Object that holds these values
+
+    - add look up value to our sum
+
+- return final sum
+
+/**
+ * @param {string} s
+ * @return {number}
+ */
+
+var romanToInt = function(s) {
+
+    let sum = 0;
+
+    for (let i = 0; i < s.length; i++) {
+        let char = s[i];
+
+        if (char === 'I') {
+            if (s[i+1] === 'V' || s[i+1] === 'X') {
+                char += s[i+1];
+                i++;
+            }
+        } else if (char === 'X') {
+            if (s[i+1] === 'L' || s[i+1] === 'C') {
+                char += s[i+1];
+                i++;
+            }
+        } else if (char === 'C') {
+            if (s[i+1] === 'D' || s[i+1] === 'M') {
+                char += s[i+1];
+                i++;
+            }
+        }
+
+        let val = ROMAN_TO_INT[char];
+
+        sum += val; 
+
+    }
+
+    return sum;
+    
+};
+
+const ROMAN_TO_INT = {
+    I: 1,
+    V: 5,
+    X: 10,
+    L: 50,
+    C: 100,
+    D: 500,
+    M: 1000,
+    IV: 4,
+    IX: 9,
+    XL: 40,
+    XC: 90,
+    CD: 400,
+    CM: 900
+}

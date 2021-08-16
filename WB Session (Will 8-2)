@@ -148,3 +148,54 @@ Example:
 key = "The quick onyx goblin, grabbing his sword, jumps over the lazy dwarf!"
 encrypt("It was all a dream.", key) -> "Od ptw txx t qsutg."
 encrypt("Would you kindly?", key) -> "Pljxq zlj yobqxz?"
+
+
+// assume key maps all 26 letters in alphabet & assume return in all caps for now
+- map each unique letter to the next letter in the alphabet in order
+- Returns encrypted message back
+
+Approach
+    - 1st translate key into new mapping of letters
+        - start with array of letters to work and translate over
+    - take each letter in message and map to letter in object and rebuild encrypted message
+
+
+function cipher(msg, key) {
+    const alphabet = [A,B,C ...];
+    let cipher = new Map();
+    let revCipher = new Map();
+
+    let idx = 0;
+    
+    for (let char in key) {
+        char = char.toUpperCase();
+
+        if (!cipher.has(char)) {
+            cipher.add(char, alphabet[idx])
+            revCipher.add(alphabet[idx], char);
+            idx++;
+        }
+
+        if(idx === 26) break;
+    }
+
+    while (idx !== 26) {
+        revCipher.add(alphabet[idx], alphabet[idx]);
+        idx++;
+    }
+
+    let cipherMsg = '';
+
+    for (let char of msg) {
+        upChar = char.toUpperCase()
+        if (revCipher.has(upChar)) {
+            let cipherLetter = upChar === char ? revCipher[upChar] : revCipher[upChar].toLowerCase();
+            cipherMsg += cipherLetter;
+        } else {
+            cipherMsg += char;
+        }
+    }
+
+    return cipherMsg
+
+}
